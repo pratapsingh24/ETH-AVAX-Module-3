@@ -1,50 +1,58 @@
-# Connecting Local Hardhat Network with Remix
+# ETH-AVAX-Module-3
+# Create and Mint Token
 
-Follow the steps below to connect your local Hardhat network with Remix and interact with a contract.
+## Description
 
-## Step 1: Navigate to Project Directory
-Open your terminal and navigate to the project directory where your Solidity contract is located.
+For this project, you will write a smart contract to create your own ERC20 token and deploy it using HardHat or Remix. Once deployed, you should be able to interact with it for your walk-through video. From your chosen tool, the contract owner should be able to mint tokens to a provided address and any user should be able to burn and transfer tokens.
 
-## Step 2: Run `remixd` Command
-In the terminal, run the following command to start the `remixd` service:
-```
-cd ~/Directory/remixd
-```
-Replace `<project_directory>` with the absolute path to your project directory. This will create a connection between Remix IDE and your local project directory.
+## Getting Started
 
-## Step 3: Open Remix IDE
-Open your web browser and go to [Remix IDE](https://remix.ethereum.org).
+### State Variables
 
-## Step 4: Connect with Local Host
-In Remix IDE, click on the "Connect to Localhost" button in the top-right corner. This will establish a connection to your local Hardhat network.
+- name: The name of the token, set to "Pratap".
+- symbol: The symbol of the token, set to "PRO".
+- totalSupply: The total supply of tokens, initialized to 10^11.
+- owner: The address of the contract owner, set to the address that deploys the contract.
+- balanceOf: A mapping that keeps track of the token balance of each address.
 
-## Step 5: Create a Contract
-In Remix IDE, click on the "+" button in the left panel to create a new file. Enter the Solidity code for your contract or `.sol` file in the editor.
+### Constructor
 
-Example Contract:
-```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+The constructor initializes the contract state. It assigns the total supply of tokens to the contract owner's balance when the contract is deployed.
 
-contract Token {
-    // Contract code here...
-}
-```
+### Modifiers
 
-## Step 6: Compile the Contract
-In the Remix IDE, switch to the "Solidity Compiler" tab in the left panel. Click on the "Compile" button to compile the contract. Make sure the compiler version matches the pragma statement in your contract.
-
-## Step 7: Deploy and Interact with the Contract
-Switch to the "Deploy & Run Transactions" tab in the Remix IDE. From the "Environment" dropdown, select "Injected Web3" to connect to your local Hardhat network.
-
-Click on the contract name under the "Deployed Contracts" section. You will see the contract's functions and variables. You can deploy the contract by clicking the "Deploy" button.
-
-Once the contract is deployed, you can interact with its functions by entering the required parameters and clicking the respective function buttons.
-
-Congratulations! You have successfully connected your local Hardhat network with Remix and deployed/interacted with a contract.
-
-Note: Make sure your local Hardhat network is running (`npx hardhat node`) and that you have the necessary dependencies installed (`npm install`).
-
-Please refer to the provided code and adjust it to meet your specific contract requirements. Add relevant information and code in a structured manner within the `Token` contract.
+onlyOwner: A modifier that restricts access to certain functions to only the contract owner. It checks if the sender (msg.sender) is the owner, and if not, it reverts the transaction with an error message.
 
 
+## Functions
+### Transfer Function
+
+- Allows any user to transfer tokens to another address.
+- Checks that the recipient address is not the zero address and that the sender has sufficient balance.
+- Updates the balances accordingly and returns true upon success.
+
+
+### Burn Function
+
+- Allows any user to burn their tokens.
+- Checks that the sender has sufficient balance.
+- Decreases the sender's balance and the total supply of tokens accordingly and returns true upon success.
+
+
+### Mint Function
+
+- Allows the owner to mint new tokens.
+- Increases the balance of the specified address and the total supply of tokens.
+- Contains a logical error: it should check the owner before increasing the balance and total supply. As written, it reverts the transaction if _to is not the owner, but this check should be performed before modifying the balances and supply.
+
+## Working
+Working and deployment of the code is shown in the video.
+
+## Authors
+
+Pratap Singh  
+[@pratapsingh24](https://github.com/pratapsingh24/ETH-AVAX-Module-3)
+
+
+## License
+This project is licensed under the MIT License - see the LICENSE.md file for details
